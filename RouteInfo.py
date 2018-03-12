@@ -24,6 +24,7 @@ from PublicValue import *
 상행막차	upLastTime
 최대(비첨두)배차간격	nPeekAlloc
 '''
+		
 
 tags=ROUTE_INFO_TAG
 class RouteInfo:
@@ -41,6 +42,10 @@ class RouteInfo:
 		##xml요청 주소에 넘길 인자 세팅
 		queryParams = '?' + urlencode({quote_plus('serviceKey') : "KEYKEY", quote_plus('routeId') : self.routeId })
 		queryParams = queryParams.replace("KEYKEY", RouteInfo.key)
+
+		if routeId=='241483004' or routeId=='241483010' :
+			self.url = "https://joambusapp.azurewebsites.net/appfile/rinfo_"
+			queryParams = routeId + '.xml'
 		
 		##xml문서 받아와 str으로 xmlStr에 담는다.
 		request = Request(self.url + queryParams)
@@ -65,12 +70,14 @@ class RouteInfo:
 		
 	## xml문서에서 본 정보리스트 리턴
 	def getRouteInfo(self):
-		if not self.isOnInternet:
+		if not self.isSuccess():
 			return []
 		return self.root.find("msgBody").find("busRouteInfoItem")
 
 	def getInfoItems(self):
 		aList = self.getRouteInfo()
+		if aList == []:
+			return []
 		answer = []
 		for i in range(len(tags)):
 			answer.append(aList.findtext(tags[i]))
@@ -81,7 +88,7 @@ class RouteInfo:
 		
 ##테스트코드
 if __name__ == "__main__" :
-	dd = RouteInfo("233000010")
+	dd = RouteInfo("241483004")
 	result = dd.getInfoItems()
 	for i  in range(len(result)):
 		print(tags[i], result[i])

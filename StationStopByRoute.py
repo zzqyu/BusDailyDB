@@ -27,7 +27,6 @@ class StopByRoute:
 		self.xmlStr = "" ##xml문자열 담을 변수
 		self.root = None ##최상위 항목 담을 변수
 		self.isOnInternet = True ## 인터넷연결여부 
-		print(stationId)
 		##xml요청 주소에 넘길 인자 세팅
 		queryParams = '?' + urlencode({quote_plus('serviceKey') : "KEYKEY", quote_plus('stationId') : self.stationId })
 		queryParams = queryParams.replace("KEYKEY", StopByRoute.key)
