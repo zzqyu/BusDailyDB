@@ -12,7 +12,7 @@ ROUTE_STATION_DB_TAG = ("routeId", "stationSeq", "centerYn", "districtCd", "mobi
 ##노선정보 항목태그
 ROUTE_INFO_TAG = ("companyName", "companyTel", "districtCd", "downFirstTime", "downLastTime", "endMobileNo", "endStationId", "endStationName", "peekAlloc", "regionName", "routeId", "routeName", "routeTypeCd", "routeTypeName", "startMobileNo", "startStationId", "startStationName", "upFirstTime", "upLastTime", "nPeekAlloc")
 ##노선정보DB 항목태그
-ROUTE_INFO_DB_TAG = ("companyName", "companyTel", "districtCd", "downFirstTime", "downLastTime", "endMobileNo", "endStationId", "endStationName", "peekAlloc", "regionName", "routeId", "routeName", "routeTypeCd", "routeTypeName", "startMobileNo", "startStationId", "startStationName", "upFirstTime", "upLastTime", "nPeekAlloc", "middleSationName")
+ROUTE_INFO_DB_TAG = ("companyName", "companyTel", "districtCd", "downFirstTime", "downLastTime", "endMobileNo", "endStationId", "endStationName", "peekAlloc", "regionName", "routeId", "routeName", "routeTypeCd", "routeTypeName", "startMobileNo", "startStationId", "startStationName", "upFirstTime", "upLastTime", "nPeekAlloc", "middleStationName", "isOneWay")
 ##정류소 경유하는 노선목록 조회 항목태그
 STATION_STOP_BY_ROUTR_TAG = ("districtCd", "regionName", "routeId", "routeName", "routeTypeCd", "routeTypeName")
 ##조암지역 노선 저장DB 태그
@@ -24,7 +24,7 @@ ROUTE_STATION_DB_TAG_BYTE = (11, 4, 2, 3, 6, 7, 11, 40, 11, 11, 2)
 ##노선정보 항목태그 byte
 ROUTE_INFO_TAG_BYTE = (30, 13, 3, 6, 6, 6, 11, 40, 6, 30, 11, 10, 3, 30, 6, 11, 40, 6, 6, 6)
 ##노선정보DB 항목태그 byte
-ROUTE_INFO_DB_TAG_BYTE = (30, 13, 3, 6, 6, 6, 11, 40, 6, 30, 11, 10, 3, 30, 6, 11, 40, 6, 6, 6, 40)
+ROUTE_INFO_DB_TAG_BYTE = (30, 13, 3, 6, 6, 6, 11, 40, 6, 30, 11, 10, 3, 30, 6, 11, 40, 6, 6, 6, 40,2)
 ##정류소 경유하는 노선목록 조회 항목태그 byte
 STATION_STOP_BY_ROUTR_TAG_BYTE = (3, 13, 11, 6, 3, 30)
 ##조암지역 노선 저장DB 태그 byte
