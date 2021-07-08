@@ -48,31 +48,10 @@ def selectMidStation(stationDict):
 
     return (stationDict[str(propertyIndex[answerIndex][0])][5], stationDict[seqIndexs[-1]][-1])
 
-
-    '''
-    inc=1
-    while True:
-        print(midStaiontionName)
-       # if "(경유)" in midStaiontionName:
-            
-        if (not "(경유)" in midStaiontionName) and ( "리" in midStaiontionName or  "동" in midStaiontionName or  "통" in midStaiontionName or  "학교" in midStaiontionName or  "마을" in midStaiontionName or  "읍" in midStaiontionName)   :
-            break
-        else:
-            incdec = int(round(inc/2)*pow(-1, inc))
-            midStaiontionName = stationDict[str(int(midIndex)+incdec)][5]
-            inc+=1
-            '''
-    return midStaiontionName
-
-
 errorCount = 0
 
-#서버연결
 ##DB
-server = "13.125.133.124"
-serverPort = 3306 
-dbc = DBControl(server, "root", "005410", "joambusdb", serverPort)
-#dbc = DBControl("localhost", "root", "비번", "busarrivaldb")
+dbc = DBControl("joambusdb")
 
 #노선목록
 print("노선목록")

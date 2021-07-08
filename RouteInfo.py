@@ -43,11 +43,8 @@ class RouteInfo:
 		queryParams = '?' + urlencode({quote_plus('serviceKey') : "KEYKEY", quote_plus('routeId') : self.routeId })
 		queryParams = queryParams.replace("KEYKEY", RouteInfo.key)
 
-		if routeId=='241483004' or routeId=='241483010' :
-			self.url = "https://joambusapp.azurewebsites.net/appfile/rinfo_"
-			queryParams = routeId + '.xml'
-		
 		##xml문서 받아와 str으로 xmlStr에 담는다.
+		print(self.url + queryParams)
 		request = Request(self.url + queryParams)
 		request.get_method = lambda: 'GET'
 		try:
@@ -88,7 +85,7 @@ class RouteInfo:
 		
 ##테스트코드
 if __name__ == "__main__" :
-	dd = RouteInfo("241483004")
+	dd = RouteInfo("200000085")
 	result = dd.getInfoItems()
 	for i  in range(len(result)):
 		print(tags[i], result[i])

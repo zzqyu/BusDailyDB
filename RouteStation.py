@@ -56,7 +56,7 @@ class RouteStation:
 	def getStations(self):
 		if not self.isOnInternet:
 			return []
-		return self.root.find("msgBody").getchildren()
+		return list(self.root.find("msgBody"))
 	
 	##정류장목록 리턴	
 	def getStationNames(self):
