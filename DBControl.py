@@ -76,4 +76,13 @@ class DBControl:
 		self.cur.execute(sql)
 		self.con.commit()
 		return True
-		
+
+	def getJoamData(self):
+		self.cur.execute("SELECT ROUTE_ID, IS_ONEWAY, MID_STATION FROM route where IS_ONEWAY is not null;")
+		answer = self.cur.fetchall()
+		return list(answer)
+
+	def setJoamData(self, dataList):
+		dataList = [[row['IS_ONEWAY'],row['MID_STATION'],row['ROUTE_ID']] for row in dataList]
+		self.cur.executemany("UPDATE route set IS_ONEWAY = %s, MID_STATION = %s WHERE ROUTE_ID = %s;", dataList)
+		self.con.commit()

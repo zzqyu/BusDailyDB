@@ -7,9 +7,10 @@ from PublicValue import *
 ##테스트코드
 if __name__ == "__main__" :
 
+    dbc = DBControl("joambus")
+    joamData = dbc.getJoamData()
+
     http = urllib3.PoolManager()
-    dbc = DBControl("joambusdb")
-    
     result = BaseInfo().getBaseInfoItemFields()
     date = result[BASE_INFO_NEED_TAG[0]]
     print("version: " + date)
@@ -37,3 +38,5 @@ if __name__ == "__main__" :
             dbc.addData(tableNm, tuple(alist[0]), alist[i+1])
             printProgress(i, len(alist[1:]), 'Progress:', 'Complete', 1, 50)
             print()
+
+    dbc.setJoamData(joamData)
