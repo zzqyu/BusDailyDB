@@ -1,7 +1,7 @@
 ﻿import pymysql
 from cryptography.fernet import Fernet
 import configparser
-from datetime import datetime
+import os
 
 class DBControl:
 	def __init__(self, _dbname):
@@ -10,11 +10,12 @@ class DBControl:
 		self.config.read('info.properties')
 		self.fernet = Fernet(key)
 
-		_port = 3306
-		_host = self.getInfo('db.url')
-		_id = self.getInfo('db.id')
-		_pw = self.getInfo('db.pwd')
-		self.con = pymysql.connect(host=_host, port=_port, user=_id, password=_pw, database=_dbname, charset='utf8')
+		self.port = 3306
+		self.host = self.getInfo('db.url')
+		self.id = self.getInfo('db.id')
+		self.pw = self.getInfo('db.pwd')
+		self.dbNm = _dbname
+		self.con = pymysql.connect(host=self.host, port=self.port, user=self.id, password=self.pw, database=self.dbNm, charset='utf8')
 		self.cur = self.con.cursor(pymysql.cursors.DictCursor)
 		self.cur.execute("set names utf8")
 	def __del__(self):
@@ -86,3 +87,25 @@ class DBControl:
 		dataList = [[row['IS_ONEWAY'],row['MID_STATION'],row['ROUTE_ID']] for row in dataList]
 		self.cur.executemany("UPDATE route set IS_ONEWAY = %s, MID_STATION = %s WHERE ROUTE_ID = %s;", dataList)
 		self.con.commit()
+
+	def dumpdb(self, tableNm):
+		command = []
+		command.append("mysqldump")
+		command.append("-h%s" % self.host)
+		command.append("-u%s" % self.id)
+		command.append("-p%s" % self.pw)
+		command.append("%s" % self.dbNm)
+		command.append("%s > ./%s.sql" % (tableNm, tableNm))
+		command = " ".join(command)
+		os.system(command)
+	
+	def restoredb(self, tableNm):
+		command = []
+		command.append("mysql")
+		command.append("-h%s" % self.host)
+		command.append("-u%s" % self.id)
+		command.append("-p%s" % self.pw)
+		command.append("%s" % self.dbNm)
+		command.append("< ./%s.sql" % (tableNm))
+		command = " ".join(command)
+		os.system(command)

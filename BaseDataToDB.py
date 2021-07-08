@@ -7,8 +7,12 @@ from PublicValue import *
 ##테스트코드
 if __name__ == "__main__" :
 
-    dbc = DBControl("joambus")
-    joamData = dbc.getJoamData()
+    dbc = DBControl("joambusdb")
+
+    jodbFlag = False
+    if dbc.isThisTable("route"):
+        joamData = dbc.getJoamData()
+        jodbFlag = True
 
     http = urllib3.PoolManager()
     result = BaseInfo().getBaseInfoItemFields()
@@ -29,8 +33,15 @@ if __name__ == "__main__" :
 
         tableNm = tag.replace("DownloadUrl", "")
         print(tableNm)
+
+        flag = False
+
         if dbc.isThisTable(tableNm):
+            #backup
+            dbc.dumpdb(tableNm)
+            count = dbc.getRowViaSql(tableNm)
             dbc.emptyTable(tableNm)
+            flag = True
         else:
             dbc.createTable(dDllSql[tableNm])
 
@@ -39,4 +50,9 @@ if __name__ == "__main__" :
             printProgress(i, len(alist[1:]), 'Progress:', 'Complete', 1, 50)
             print()
 
-    dbc.setJoamData(joamData)
+        # restore
+        if(flag and count/2 > dbc.getRowViaSql(tableNm)):
+            dbc.restoredb(tableNm)
+        
+    if(jodbFlag) :
+        dbc.setJoamData(joamData)
