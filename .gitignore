@@ -146,3 +146,14 @@ cython_debug/
 .vscode/
 
 # End of https://www.toptal.com/developers/gitignore/api/python
+
+# log text file
+update_end.txt
+update_run.txt
+update_start.txt
+
+# backup sql file
+route.sql
+routeStation.sql
+station.sql
+
