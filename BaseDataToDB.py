@@ -7,7 +7,7 @@ from PublicValue import *
 ##테스트코드
 if __name__ == "__main__" :
 
-    dbc = DBControl("joambusdb")
+    dbc = DBControl("joambus")
 
     jodbFlag = False
     if dbc.isThisTable("route"):
@@ -56,3 +56,6 @@ if __name__ == "__main__" :
         
     if(jodbFlag) :
         dbc.setJoamData(joamData)
+
+    # restore joambus route db
+    dbc.restoredb("joam_restore")
